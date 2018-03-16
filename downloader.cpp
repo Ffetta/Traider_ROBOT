@@ -15,6 +15,7 @@ void Downloader::getData()
     request.setUrl(url);
     manager->get(request);
 }
+
 void Downloader::onResult(QNetworkReply *reply)
 {
 

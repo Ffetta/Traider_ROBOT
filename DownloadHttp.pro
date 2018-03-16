@@ -6,7 +6,7 @@
 
 QT       += core gui network
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 TARGET = DownloadHttp
 TEMPLATE = app
@@ -15,10 +15,15 @@ TEMPLATE = app
 SOURCES += main.cpp\
         widget.cpp \
     downloader.cpp \
-    currebcy_pair.cpp
+    currebcy_pair.cpp \
+    qcustomplot.cpp \
+    graf.cpp
 
 HEADERS  += widget.h \
     downloader.h \
-    currebcy_pair.h
+    currebcy_pair.h \
+    qcustomplot.h \
+    graf.h
 
-FORMS    += widget.ui
+FORMS    += widget.ui \
+    graf.ui
