@@ -5,8 +5,9 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Graf v;
-    Widget w;
+    Graf v();
+    QList *list = new QList;
+    Widget w(list);
     w.show();
     v.show();
 

@@ -1,6 +1,7 @@
 #ifndef CURREBCY_PAIR_H
 #define CURREBCY_PAIR_H
 #include<QString>
+#include<QList>
 
 
 class Currebcy_Pair
@@ -21,5 +22,9 @@ public:
     double sell_Praice;
     double last_Traid;
 };
+
+//class Spisok{
+//   QList spicok;
+//}
 
 #endif // CURREBCY_PAIR_H

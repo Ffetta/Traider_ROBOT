@@ -2,7 +2,8 @@
 #include "ui_widget.h"
 #include <fstream>
 QList <Currebcy_Pair> spisok;
-Widget::Widget(QWidget *parent) :
+Widget::Widget(QList* _list, QWidget *parent) :
+    list(_list),
     QWidget(parent),
     ui(new Ui::Widget)
 {
@@ -29,6 +30,7 @@ Widget::~Widget()
 
 void Widget::AddNumber(QByteArray num){
     num+=' ';
+    //list;
     QFile *file = new QFile("C:/number.txt");
     if(file->open(QFile::Append))
 
@@ -63,6 +65,7 @@ Currebcy_Pair *ReadFile(){
     //QString str="";
     if (!file.open(QIODevice::ReadOnly))
             return NULL;
+
 
 
 
@@ -101,7 +104,7 @@ Currebcy_Pair *ReadFile(){
             control++;
         }
     }
-   double d1 = atof(BayPriseByte);
+   double d1 = BayPriseByte.toDouble();
     qDebug()<<BayPriseByte<<' '<<d1;//числа округляются до 2 знаков после точки
    double d2 = atof(SellPriseByte);
    double d3 = atof(LastTraid);
@@ -129,8 +132,8 @@ void Widget::Prognoz(){
     Currebcy_Pair d=*ReadFile();
     double First = d.bay_Praice;
     //wait(10);
-    Currebcy_Pair v=*ReadFile();// как здесь не создавть доп объекты
-    double Second=v.bay_Praice;
+  //  Currebcy_Pair *v=ReadFile();// как здесь не создавть доп объекты
+    double Second=ReadFile()->bay_Praice;
 
     qDebug()<< "     " <<First<<endl<<Second;
 

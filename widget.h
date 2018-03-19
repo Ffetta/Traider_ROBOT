@@ -21,7 +21,7 @@ class Widget : public QWidget
 
 public:
     //Currebcy_Pair *ReadFile();
-    explicit Widget(QWidget *parent = 0);
+    explicit Widget(QList *list, QWidget *parent = 0);
     //Currebcy_Pair s;
     ~Widget();
 
@@ -38,6 +38,7 @@ void Prognoz();
 
 
  private:
+    QList* list;
     Ui::Widget *ui;
     Downloader *downloader; // Объявляем объект класса для скачивания данных по http
    // Currebcy_Pair s();
