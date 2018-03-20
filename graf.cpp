@@ -1,7 +1,8 @@
 #include "graf.h"
 #include "ui_graf.h"
 
-Graf::Graf(QWidget *parent) :
+Graf::Graf( QList<Currebcy_Pair>* _list, QWidget *parent) :
+        list(_list),
     QWidget(parent),
     ui(new Ui::Graf)
 {
@@ -14,57 +15,60 @@ Graf::~Graf()
 }
 
 
-////Сгенерируем данные
-////Для этого создадим два массива точек:
-////один для созранения x координат точек,
-////а второй для y соответственно
-//void Graf::Gafic(){
-//double a = -1; //Начало интервала, где рисуем график по оси Ox
-//double b =  1; //Конец интервала, где рисуем график по оси Ox
-//double h = 0.01; //Шаг, с которым будем пробегать по оси Ox
-////int kolTochek=10;
-//int N=10; //количество точек
-//QVector<double> x(N), y(N); //Массивы координат точек
+//Сгенерируем данные
+//Для этого создадим два массива точек:
+//один для созранения x координат точек,
+//а второй для y соответственно
+void Graf::Gafic(){
+    double a = -1; //Начало интервала, где рисуем график по оси Ox
+    double b =  1; //Конец интервала, где рисуем график по оси Ox
+    //double h = 0.01; //Шаг, с которым будем пробегать по оси Ox
+    //int kolTochek=10;
+    int N=list->size(); //количество точек/////////////////////////////////////////////ПАДАЕт
+    QVector<double> x(N), y(N); //Массивы координат точек
 
-////Вычисляем наши данные
-//int i=0;
-//int kolSec=15;
+    //Вычисляем наши данные
+    int i=0;
+  //  int kolSec=15;
 
-//for (double X=a;  ; X+=kolSec)//Пробегаем по всем точкам
-//{
-//    x[i]=x;
+    //Пробегаем по всем точкам
 
+        while (i!=N) //До тех пор пока не встретит пустое значение
+        {
+            Currebcy_Pair one_of_pair=list->at(i) ;
+            x[i]=(double) one_of_pair.getTime();
+            y[i] =one_of_pair.getBay_Praice();
+ //Формула нашей функции
+        i++;
+    }
+    a=x[0];
+    b=x[10];
+    ui->widget->clearGraphs();//Если нужно, но очищаем все графики
+    //Добавляем один график в widget
+    ui->widget->addGraph();
+    //Говорим, что отрисовать нужно график по нашим двум массивам x и y
+    ui->widget->graph(0)->setData(x, y);
 
-//    y[i] = number;//Формула нашей функции
-//    i++;
-//}
+    //Подписываем оси Ox и Oy
+    ui->widget->xAxis->setLabel("x");
+    ui->widget->yAxis->setLabel("y");
 
-//ui->widget->clearGraphs();//Если нужно, но очищаем все графики
-////Добавляем один график в widget
-//ui->widget->addGraph();
-////Говорим, что отрисовать нужно график по нашим двум массивам x и y
-//ui->widget->graph(0)->setData(x, y);
+    //Установим область, которая будет показываться на графике
+    ui->widget->xAxis->setRange(a, b);//Для оси Ox
 
-////Подписываем оси Ox и Oy
-//ui->widget->xAxis->setLabel("x");
-//ui->widget->yAxis->setLabel("y");
+    //Для показа границ по оси Oy сложнее, так как надо по правильному
+    //вычислить минимальное и максимальное значение в векторах
+    double minY = y[0], maxY = y[0];
+    for (int i=1; i<N; i++)
+    {
+        if (y[i]<minY) minY = y[i];
+        if (y[i]>maxY) maxY = y[i];
+    }
+    ui->widget->yAxis->setRange(minY, maxY);//Для оси Oy
 
-////Установим область, которая будет показываться на графике
-//ui->widget->xAxis->setRange(a, b);//Для оси Ox
-
-////Для показа границ по оси Oy сложнее, так как надо по правильному
-////вычислить минимальное и максимальное значение в векторах
-//double minY = y[0], maxY = y[0];
-//for (int i=1; i<N; i++)
-//{
-//    if (y[i]<minY) minY = y[i];
-//    if (y[i]>maxY) maxY = y[i];
-//}
-//ui->widget->yAxis->setRange(minY, maxY);//Для оси Oy
-
-////И перерисуем график на нашем widget
-//ui->widget->replot();
-//}
+    //И перерисуем график на нашем widget
+    ui->widget->replot();
+}
 
 
 
@@ -126,3 +130,55 @@ Graf::~Graf()
 //  return now;
 
 //}
+
+void Graf::on_pushButton_clicked()
+{
+    double a = -1; //Начало интервала, где рисуем график по оси Ox
+    double b =  1; //Конец интервала, где рисуем график по оси Ox
+    //double h = 0.01; //Шаг, с которым будем пробегать по оси Ox
+    //int kolTochek=10;
+    int N=list->size(); //количество точек/////////////////////////////////////////////ПАДАЕт
+    QVector<double> x(N), y(N); //Массивы координат точек
+
+    //Вычисляем наши данные
+    int i=0;
+  //  int kolSec=15;
+
+    //Пробегаем по всем точкам
+
+        while (i!=N) //До тех пор пока не встретит пустое значение
+        {
+            Currebcy_Pair one_of_pair=list->at(i) ;
+            x[i]=(double) one_of_pair.getTime();
+            y[i] =one_of_pair.getBay_Praice();
+ //Формула нашей функции
+        i++;
+    }
+    a=x[0];
+    b=x[10];
+    ui->widget->clearGraphs();//Если нужно, но очищаем все графики
+    //Добавляем один график в widget
+    ui->widget->addGraph();
+    //Говорим, что отрисовать нужно график по нашим двум массивам x и y
+    ui->widget->graph(0)->setData(x, y);
+
+    //Подписываем оси Ox и Oy
+    ui->widget->xAxis->setLabel("x");
+    ui->widget->yAxis->setLabel("y");
+
+    //Установим область, которая будет показываться на графике
+    ui->widget->xAxis->setRange(a, b);//Для оси Ox
+
+    //Для показа границ по оси Oy сложнее, так как надо по правильному
+    //вычислить минимальное и максимальное значение в векторах
+    double minY = y[0], maxY = y[0];
+    for (int i=1; i<N; i++)
+    {
+        if (y[i]<minY) minY = y[i];
+        if (y[i]>maxY) maxY = y[i];
+    }
+    ui->widget->yAxis->setRange(minY, maxY);//Для оси Oy
+
+    //И перерисуем график на нашем widget
+    ui->widget->replot();
+}

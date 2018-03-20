@@ -7,9 +7,11 @@
 #include <downloader.h>
 #include <fstream>
 #include <list>
-#include<QList>
+#include <QList>
 #include <iterator>
 #include <iostream>
+#include <graf.h>
+
 
 namespace Ui {
 class Widget;
@@ -20,10 +22,11 @@ class Widget : public QWidget
     Q_OBJECT
 
 public:
-    //Currebcy_Pair *ReadFile();
-    explicit Widget(QList *list, QWidget *parent = 0);
-    //Currebcy_Pair s;
+    explicit Widget(QList<Currebcy_Pair> *list = nullptr, QWidget *parent = 0);
     ~Widget();
+     //boost::signal<void()> OnPressed; //Сигнал
+    signals:
+      void onReady();
 
 private slots:
     void readFile();
@@ -32,15 +35,16 @@ private slots:
 
 public slots:
     void AddNumber(QByteArray num);
- void AddNumberToList(Currebcy_Pair s);
-void Prognoz();
+    void AddNumberToList(Currebcy_Pair s);
+    void Prognoz();
 
 
 
  private:
-    QList* list;
+    QList<Currebcy_Pair>* list;
     Ui::Widget *ui;
     Downloader *downloader; // Объявляем объект класса для скачивания данных по http
+    Graf *graf;
    // Currebcy_Pair s();
 };
 
