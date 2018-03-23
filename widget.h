@@ -25,6 +25,7 @@ public:
     explicit Widget(QList<Currebcy_Pair> *list = nullptr, QWidget *parent = 0);
     ~Widget();
      //boost::signal<void()> OnPressed; //Сигнал
+    bool up_or_down();
     signals:
       void onReady();
 
@@ -37,6 +38,7 @@ public slots:
     void AddNumber(QByteArray num);
     void AddNumberToList(Currebcy_Pair s);
     void Prognoz();
+
 
 
 

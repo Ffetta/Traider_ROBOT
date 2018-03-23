@@ -100,9 +100,30 @@ void wait ( int seconds ) // доступно для int. Если сделат�
   while (clock() < endwait) {}
 }
 
+bool Widget::up_or_down(){
+    Currebcy_Pair *n= nullptr;
+    for(int i=0; i<11;i++){
+        if (list->at(i).getTime()==clock()-60*CLOCKS_PER_SEC){
+            n=list->at(i);
+        }
+        if(n!=nullptr){//Если цены равны то считается что мы выйграли
+            if (n->getBay_Praice()<=list->back().getBay_Praice()){//1 когда вверх , 0 когда вниз
+                return 1;
+            }
+            if(n->getBay_Praice()>=list->back().getBay_Praice()){
+                return 0;
+            }
+        }
+        else
+        {
+            qDebug<<"error";
+            return 0;
+        }
+    }
+}
 
 void Widget::Prognoz(){
-    bool Up_or_donw=rand();//Вместо этого должен быть алгоритм определения
+    bool lastRate= up_or_down();   //Вместо этого должен быть алгоритм определения
 
     if (list->size()>11){
         list->removeAt(0);
